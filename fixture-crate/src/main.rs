@@ -28,8 +28,17 @@ mod tests {
     }
 
     #[test]
-    fn test_multiply_zero_and_negative() {
-        assert_eq!(multiply(0, 5), 0);
-        assert_eq!(multiply(-2, 3), -6);
+    fn test_multiply_negative() {
+        assert_eq!(multiply(-2, 5), -10);
+    }
+
+    #[test]
+    fn test_multiply_zero() {
+        assert_eq!(multiply(0, 7), 0);
+    }
+
+    #[test]
+    fn test_multiply_both_negative() {
+        assert_eq!(multiply(-3, -3), 9);
     }
 }
