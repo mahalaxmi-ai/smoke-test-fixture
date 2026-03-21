@@ -2,6 +2,10 @@ pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
+pub fn multiply(a: i32, b: i32) -> i32 {
+    a * b
+}
+
 fn main() {
     println!("smoke test fixture");
 }
@@ -13,5 +17,12 @@ mod tests {
     #[test]
     fn test_add() {
         assert_eq!(add(2, 3), 5);
+    }
+
+    #[test]
+    fn test_multiply() {
+        assert_eq!(multiply(3, 4), 12);
+        assert_eq!(multiply(-2, 5), -10);
+        assert_eq!(multiply(0, 7), 0);
     }
 }
