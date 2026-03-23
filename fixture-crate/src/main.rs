@@ -23,6 +23,12 @@ mod tests {
     }
 
     #[test]
+    fn test_multiply() {
+        assert_eq!(multiply(3, 4), 12);
+        assert_eq!(multiply(0, 5), 0);
+    }
+
+    #[test]
     fn test_multiply_positive() {
         assert_eq!(multiply(3, 4), 12);
     }
