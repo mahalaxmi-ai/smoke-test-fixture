@@ -1,1 +1,1 @@
-TEXT_A
+This is the content for worker_a.txt
