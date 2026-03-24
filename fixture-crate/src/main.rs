@@ -49,6 +49,8 @@ mod tests {
         assert_eq!(add(i32::MIN + 1, -1), i32::MIN);
         assert_eq!(add(-3, 5), 2);
         assert_eq!(add(1000, 1000), 2000);
+        assert_eq!(add(1, 2), 3);
+        assert_eq!(add(-1, 1), 0);
     }
 
     #[test]
