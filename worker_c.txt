@@ -1,1 +1,1 @@
-TEXT_C
+This is Worker C's output file.
