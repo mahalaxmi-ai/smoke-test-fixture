@@ -1,3 +1,11 @@
+/// Adds two i32 integers and returns their sum.
+///
+/// # Arguments
+/// * `a` - The first integer operand
+/// * `b` - The second integer operand
+///
+/// # Returns
+/// The sum of `a` and `b`
 pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
