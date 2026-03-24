@@ -99,4 +99,11 @@ mod tests {
         assert_eq!(multiply(-2, 4), -8);
         assert_eq!(multiply(i32::MAX, 1), i32::MAX);
     }
+
+    #[test]
+    fn test_multiply_specific_required_cases() {
+        assert_eq!(multiply(2, 3), 6);
+        assert_eq!(multiply(0, 5), 0);
+        assert_eq!(multiply(-2, 3), -6);
+    }
 }
