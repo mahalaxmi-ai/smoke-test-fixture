@@ -1,1 +1,1 @@
-This is the content for worker_b.txt
+TEXT_B
