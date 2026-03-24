@@ -24,6 +24,7 @@ mod tests {
 
     #[test]
     fn test_multiply() {
+        assert_eq!(multiply(2, 3), 6);
         assert_eq!(multiply(3, 4), 12);
         assert_eq!(multiply(-2, 5), -10);
         assert_eq!(multiply(0, 99), 0);
