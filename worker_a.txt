@@ -1,1 +1,1 @@
-Worker A output
+TEXT_A
