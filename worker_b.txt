@@ -1,1 +1,1 @@
-Worker B output file
+TEXT_B
