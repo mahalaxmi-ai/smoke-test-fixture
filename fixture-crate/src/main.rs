@@ -60,6 +60,7 @@ mod tests {
 
     #[test]
     fn test_multiply_negative_numbers() {
+        assert_eq!(multiply(-5, 4), -20);
         assert_eq!(multiply(-2, 5), -10);
         assert_eq!(multiply(3, -4), -12);
         assert_eq!(multiply(-3, -4), 12);
