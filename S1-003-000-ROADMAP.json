@@ -1,0 +1,26 @@
+{
+  "manifest_id": "S1-003-000",
+  "sprint_id": "S1-003",
+  "title": "Two-Phase Sprint S1-003 Requirements",
+  "version": "1.0.0",
+  "items": [
+    {
+      "id": "S1-003-001",
+      "title": "Phase 1: Foundation Setup",
+      "domain_id": "infrastructure",
+      "priority": "critical"
+    },
+    {
+      "id": "S1-003-002",
+      "title": "Phase 2: Feature Implementation",
+      "domain_id": "features",
+      "priority": "high"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "S1-003-002",
+      "to": "S1-003-001"
+    }
+  ]
+}
