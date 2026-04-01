@@ -1,4 +1,5 @@
 {
+  "_comment": "Intentional invalid fixture for negative testing. Contains five defects: invalid manifest_id format, missing sprint_id, non-semver version, empty items array, and present dependencies array. This file must be valid JSON but fail schema validation.",
   "manifest_id": "invalid@id!",
   "version": "v1.2",
   "items": [],
