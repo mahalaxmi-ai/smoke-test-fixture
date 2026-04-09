@@ -1,9 +1,9 @@
 {
   "id": "S1-003-001",
-  "title": "Phase 1: Foundation Setup",
-  "branch": "feature/phase-1-foundation",
-  "repo_url": "https://github.com/anthropics/smoke-test-repo",
-  "requirements": "Establish foundational infrastructure and core systems required for Phase 2. This includes setting up build pipelines, dependency management, and base configuration systems.",
+  "title": "Phase 1 - Foundation Setup",
+  "branch": "feature/S1-003-001-phase1",
+  "repo_url": "https://github.com/org/repo",
+  "requirements": "Establish the foundational project structure, core configuration, and base dependencies required for subsequent integration work.",
   "project_root": ".",
-  "domain_id": "infrastructure"
+  "domain_id": "manifest-system"
 }

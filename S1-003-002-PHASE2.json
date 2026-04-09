@@ -1,12 +1,10 @@
 {
   "id": "S1-003-002",
-  "title": "Phase 2: Feature Implementation",
-  "branch": "feature/phase-2-features",
-  "repo_url": "https://github.com/anthropics/smoke-test-repo",
-  "requirements": "Implement core features and functionality on top of the Phase 1 foundation. This phase builds upon the infrastructure established in Phase 1.",
+  "title": "Phase 2 - Integration and Validation",
+  "branch": "feature/S1-003-002-phase2",
+  "repo_url": "https://github.com/org/repo",
+  "requirements": "Integrate components built in Phase 1, implement cross-module validation, and verify end-to-end functionality of the manifest system.",
   "project_root": ".",
-  "domain_id": "features",
-  "dependencies": [
-    "S1-003-001"
-  ]
+  "domain_id": "manifest-system",
+  "depends_on": ["S1-003-001"]
 }
