@@ -1,12 +1,12 @@
 {
   "manifest_id": "S1-001-000-ROADMAP",
   "sprint_id": "S1-001",
-  "title": "Sprint S1-001 Requirements",
+  "title": "Sprint 1 Requirement Roadmap",
   "version": "1.0.0",
   "items": [
     {
       "id": "S1-001-001",
-      "title": "Initial requirement item",
+      "title": "Initial project scaffolding and configuration",
       "domain_id": "coding",
       "priority": "critical"
     }
