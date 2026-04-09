@@ -22,8 +22,8 @@ pub fn multiply(a: i32, b: i32) -> i32 {
     a * b
 }
 
-fn main() {
-    println!("smoke test fixture");
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    Ok(())
 }
 
 #[cfg(test)]
