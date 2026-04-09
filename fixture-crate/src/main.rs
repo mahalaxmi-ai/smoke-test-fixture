@@ -52,13 +52,18 @@ mod tests {
     }
 
     #[test]
+    fn test_add_mixed_sign() {
+        assert_eq!(add(-3, 5), 2);
+        assert_eq!(add(10, -7), 3);
+        assert_eq!(add(-1, 1), 0);
+    }
+
+    #[test]
     fn test_add_boundary_conditions() {
         assert_eq!(add(i32::MAX - 1, 1), i32::MAX);
         assert_eq!(add(i32::MIN + 1, -1), i32::MIN);
-        assert_eq!(add(-3, 5), 2);
         assert_eq!(add(1000, 1000), 2000);
         assert_eq!(add(1, 2), 3);
-        assert_eq!(add(-1, 1), 0);
     }
 
     #[test]
