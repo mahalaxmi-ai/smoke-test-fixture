@@ -1,40 +1,27 @@
 {
   "manifest_id": "S1-002-000-CIRCULAR",
   "sprint_id": "S1-002",
-  "title": "Sprint S1-002 Circular Dependencies Test",
+  "title": "Circular Dependency Test Case - Intentionally Invalid Manifest",
   "version": "1.0.0",
+  "_test_purpose": "This manifest intentionally contains a circular dependency cycle (S1-002-001 -> S1-002-002 -> S1-002-003 -> S1-002-001) and is expected to FAIL validation. It serves as a negative test fixture for circular dependency detection.",
   "items": [
     {
       "id": "S1-002-001",
-      "title": "First item in circular dependency",
-      "domain_id": "testing",
-      "priority": "high"
+      "title": "Requirement Alpha",
+      "description": "First requirement in the circular dependency chain. Depends on S1-002-002, completing the cycle.",
+      "dependencies": ["S1-002-002"]
     },
     {
       "id": "S1-002-002",
-      "title": "Second item in circular dependency",
-      "domain_id": "testing",
-      "priority": "high"
+      "title": "Requirement Beta",
+      "description": "Second requirement in the circular dependency chain. Depends on S1-002-003.",
+      "dependencies": ["S1-002-003"]
     },
     {
       "id": "S1-002-003",
-      "title": "Third item in circular dependency",
-      "domain_id": "testing",
-      "priority": "high"
-    }
-  ],
-  "dependencies": [
-    {
-      "from": "S1-002-001",
-      "to": "S1-002-002"
-    },
-    {
-      "from": "S1-002-002",
-      "to": "S1-002-003"
-    },
-    {
-      "from": "S1-002-003",
-      "to": "S1-002-001"
+      "title": "Requirement Gamma",
+      "description": "Third requirement in the circular dependency chain. Depends on S1-002-001, closing the cycle.",
+      "dependencies": ["S1-002-001"]
     }
   ]
 }
