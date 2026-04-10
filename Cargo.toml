@@ -1,3 +1,5 @@
 [workspace]
 members = ["fixture-crate"]
 resolver = "2"
+
+# Verified: domain_test.txt contains DOMAIN_ACTIVE
