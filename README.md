@@ -4,6 +4,13 @@ This repository is a **CI fixture** for [Mahalaxmi AI Terminal Orchestration](ht
 
 It exists solely to be used as the **target project** for Mahalaxmi smoke test scenarios. It contains a minimal Rust workspace so that orchestration workers have a real codebase to operate on.
 
+## Contents
+
+- **fixture-crate/**: A Rust crate with arithmetic functions (`add`, `multiply`) and unit tests
+- **Sprint manifests** (`S1-*.json`): Task definitions consumed by the orchestration system
+- **Test artifacts** (`*.txt`): Outputs from prior smoke test runs
+- **WORKSPACE_INVENTORY.md**: Full file inventory with descriptions and analysis
+
 ## Branches
 
 - `main` — this README and fixture content
