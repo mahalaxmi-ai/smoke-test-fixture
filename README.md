@@ -13,6 +13,14 @@ It exists solely to be used as the **target project** for Mahalaxmi smoke test s
 
 Smoke test scenarios clone or reset to `smoke-base`, run a Mahalaxmi orchestration cycle against this repo, then validate outputs. After each run, `scripts/reset-fixture.sh` in the main repo resets this fixture back to `smoke-base`.
 
+## Build & Test
+
+```bash
+cargo build    # Compiles with zero errors/warnings
+cargo test     # 10 tests, 100% pass rate
+cargo clippy   # Zero lint warnings
+```
+
 ## Do Not Modify Manually
 
 This repo is managed by CI automation. Manual commits may interfere with smoke test reproducibility.
