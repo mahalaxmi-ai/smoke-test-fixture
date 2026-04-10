@@ -4,6 +4,50 @@ This repository is a **CI fixture** for [Mahalaxmi AI Terminal Orchestration](ht
 
 It exists solely to be used as the **target project** for Mahalaxmi smoke test scenarios. It contains a minimal Rust workspace so that orchestration workers have a real codebase to operate on.
 
+## Repository Verification Summary
+
+**Verified on:** 2026-04-10
+**Branch:** smoke-base
+**Status:** Repository is properly initialized and accessible.
+
+### Top-Level Contents
+
+| Entry | Type |
+|---|---|
+| `.git/` | Directory (Git metadata) |
+| `.gitignore` | File |
+| `Cargo.toml` | File (Rust workspace config) |
+| `README.md` | File |
+| `S1-001-000-ROADMAP.json` | File (Sprint manifest) |
+| `S1-002-000-CIRCULAR.json` | File (Sprint manifest) |
+| `S1-003-000-ROADMAP.json` | File (Sprint manifest) |
+| `S1-003-001-PHASE1.json` | File (Sprint manifest, Phase 1) |
+| `S1-003-002-PHASE2.json` | File (Sprint manifest, Phase 2) |
+| `TEST-INVALID.json` | File |
+| `VERIFICATION_SUMMARY.txt` | File |
+| `domain_test.txt` | File |
+| `fixture-crate/` | Directory (Rust crate) |
+| `routing_test.txt` | File |
+| `smoke_output.txt` | File |
+| `verify_smoke_output.sh` | File (Shell script) |
+| `worker_a.txt` | File |
+| `worker_b.txt` | File |
+| `worker_c.txt` | File |
+| `worker_files_test_report.txt` | File |
+
+### Languages and Frameworks
+
+- **Rust** — identified via `Cargo.toml` (workspace with `resolver = "2"`, member: `fixture-crate`)
+- **Shell** — `verify_smoke_output.sh` for CI validation
+
+### Findings
+
+- The repository root exists and contains a valid `README.md` entry-point file.
+- Git history is intact with at least one commit (`cb5e245`).
+- The Rust workspace is configured with one member crate (`fixture-crate`).
+- Sprint manifest JSON files follow a two-phase system (Phase 1 and Phase 2).
+- Worker output files (`worker_a.txt`, `worker_b.txt`, `worker_c.txt`) are present from prior smoke runs.
+
 ## Branches
 
 - `main` — this README and fixture content
