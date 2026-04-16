@@ -1,18 +1,61 @@
-# smoke-test-fixture
+# manifest-validator
 
-This repository is a **CI fixture** for [Mahalaxmi AI Terminal Orchestration](https://mahalaxmi.ai).
+A Rust tool and library for validating requirement manifest JSON files. Detects missing fields, invalid version strings, unknown dependency references, and circular dependency cycles.
 
-It exists solely to be used as the **target project** for Mahalaxmi smoke test scenarios. It contains a minimal Rust workspace so that orchestration workers have a real codebase to operate on.
+## Building
 
-## Branches
+```sh
+cargo build
+```
 
-- `main` — this README and fixture content
-- `smoke-base` — the clean baseline branch that smoke tests reset to before each run
+## Testing
 
-## Usage
+```sh
+cargo test
+```
 
-Smoke test scenarios clone or reset to `smoke-base`, run a Mahalaxmi orchestration cycle against this repo, then validate outputs. After each run, `scripts/reset-fixture.sh` in the main repo resets this fixture back to `smoke-base`.
+## Running
 
-## Do Not Modify Manually
+Pass one or more manifest JSON files as arguments:
 
-This repo is managed by CI automation. Manual commits may interfere with smoke test reproducibility.
+```sh
+cargo run -- path/to/manifest.json
+```
+
+The tool exits with code 0 if all manifests are valid, or code 1 if any fail validation.
+
+### Example
+
+```sh
+# Validates a manifest with circular dependencies (expected to fail)
+cargo run -- S1-002-000-CIRCULAR.json
+```
+
+## Manifest Format
+
+```json
+{
+  "manifest_id": "S1-001-000",
+  "sprint_id": "S1-001",
+  "title": "Sprint Title",
+  "version": "1.0.0",
+  "items": [
+    {"id": "S1-001-001", "title": "First item"},
+    {"id": "S1-001-002", "title": "Second item"}
+  ],
+  "dependencies": [
+    {"from": "S1-001-001", "to": "S1-001-002"}
+  ]
+}
+```
+
+## Validation Rules
+
+- All required fields (`manifest_id`, `sprint_id`, `title`, `version`, `items`) must be present and non-empty.
+- Version must follow semver format (MAJOR.MINOR.PATCH).
+- All dependency `from`/`to` references must correspond to existing item IDs.
+- The dependency graph must be acyclic (no circular dependencies).
+
+## Workspace
+
+This repository is a Cargo workspace that also includes `fixture-crate`, a minimal smoke-test fixture.
