@@ -1,57 +1,48 @@
 # Verification Report
 
 **Generated:** 2026-04-17
-**Re-verified:** 2026-04-17 (task-0)
 **Branch:** smoke-base
+**Commit:** 8ab55de
 
 ---
 
-## 1. Repository Structure (Top-Level Listing)
+## 1. Repository Structure
 
-```
-.editorconfig
-.gitignore
-ANALYSIS.md
-ASSESSMENT.md
-Cargo.toml                  # Workspace root manifest
-CODEBASE_ASSESSMENT.md
-DEV_ENVIRONMENT.md
-PROJECT_ANALYSIS.md
-PROJECT_ASSESSMENT.md
-PROJECT_AUDIT.md
-PROJECT_AUDIT_REPORT.md
-PROJECT_STATUS.md
-PROJECT_SUMMARY.md
-README.md
-REPO_ANALYSIS.md
-REPO_AUDIT.md
-REPO_MANIFEST.md
-S1-001-000-ROADMAP.json
-S1-002-000-CIRCULAR.json
-S1-003-000-ROADMAP.json
-S1-003-001-PHASE1.json
-S1-003-002-PHASE2.json
-SCAFFOLDING_PLAN.md
-TEST-INVALID.json
-VERIFICATION_REPORT.md
-VERIFICATION_SUMMARY.txt
-docs/
-  project-analysis.md
-domain_test.txt
-fixture-crate/
-  Cargo.toml
-  src/main.rs
-routing_test.txt
-smoke_output.txt
-src/
-  lib.rs
-  main.rs
-verify_smoke_output.sh
-worker_a.txt
-worker_b.txt
-worker_c.txt
-worker_files_test_report.txt
-```
+### Top-Level Directories
+
+| Directory | Description |
+|-----------|-------------|
+| `src/` | Rust source code (`main.rs`, `lib.rs`) |
+| `docs/` | Documentation (`project-analysis.md`) |
+| `fixture-crate/` | Minimal smoke-test fixture (workspace member) |
+
+### Key Files
+
+| File | Description |
+|------|-------------|
+| `Cargo.toml` | Workspace and package manifest |
+| `README.md` | Project documentation with build/test/run instructions |
+| `src/lib.rs` | Core library: parsing, validation, circular dependency detection |
+| `src/main.rs` | CLI entry point |
+| `S1-001-000-ROADMAP.json` | Sprint S1-001 roadmap manifest |
+| `S1-002-000-CIRCULAR.json` | Circular dependency test manifest |
+| `S1-003-000-ROADMAP.json` | Sprint S1-003 two-phase roadmap manifest |
+| `S1-003-001-PHASE1.json` | Phase 1 individual requirement file |
+| `S1-003-002-PHASE2.json` | Phase 2 individual requirement file (depends on Phase 1) |
+| `TEST-INVALID.json` | Intentionally invalid manifest for testing |
+| `.editorconfig` | Editor configuration |
+| `.gitignore` | Git ignore rules |
+| `verify_smoke_output.sh` | Smoke test verification script |
+
+### Documentation Files
+
+`ANALYSIS.md`, `ASSESSMENT.md`, `CODEBASE_ASSESSMENT.md`, `DEV_ENVIRONMENT.md`, `PROJECT_ANALYSIS.md`, `PROJECT_ASSESSMENT.md`, `PROJECT_AUDIT.md`, `PROJECT_AUDIT_REPORT.md`, `PROJECT_STATUS.md`, `PROJECT_SUMMARY.md`, `REPO_ANALYSIS.md`, `REPO_AUDIT.md`, `REPO_MANIFEST.md`, `SCAFFOLDING_PLAN.md`, `VERIFICATION_SUMMARY.txt`, `docs/project-analysis.md`
+
+### Test/Output Files
+
+`domain_test.txt`, `routing_test.txt`, `smoke_output.txt`, `worker_a.txt`, `worker_b.txt`, `worker_c.txt`, `worker_files_test_report.txt`
+
+---
 
 ## 2. Detected Tech Stack
 
@@ -63,27 +54,19 @@ worker_files_test_report.txt
 | Test runner   | Cargo built-in test harness (`cargo test`)               |
 | Dependencies  | `serde 1` (with `derive`), `serde_json 1`               |
 
-## 3. Marker Scan (Recursive Search for Active Markers)
+---
 
-A recursive search was performed across all files for active `TODO`, `FIXME`, and `HACK` markers.
+## 3. Marker Scan
+
+A recursive search was performed across all files for active code markers.
 
 **Result: No active markers found in source code.**
 
-Several documentation/report files (e.g., `PROJECT_AUDIT.md`, `REPO_ANALYSIS.md`, `ASSESSMENT.md`) reference these terms, but only in the context of reporting their absence. No actionable markers exist in any `.rs`, `.toml`, `.json`, `.sh`, or `.txt` file.
+Several documentation/report files reference these terms, but only in the context of reporting their absence. No actionable markers exist in any `.rs`, `.toml`, `.json`, `.sh`, or `.txt` file.
 
-## 4. Build Results
+---
 
-**Command:** `cargo build`
-**Exit code:** 0 (success)
-
-```
-Compiling manifest-validator v0.1.0
-Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.63s
-```
-
-The project compiles successfully with no warnings or errors.
-
-## 5. Test Results
+## 4. Test Results
 
 ### manifest-validator (root crate)
 
@@ -97,94 +80,107 @@ The project compiles successfully with no warnings or errors.
 | Doc-tests            | 0      | 0      | 0       |
 | **Subtotal**         | **18** | **0**  | **0**   |
 
-### fixture-crate
+#### Library Tests (src/lib.rs)
 
-**Command:** `cargo test -p fixture-crate`
-**Exit code:** 0 (success)
+| Test | Result |
+|------|--------|
+| `test_parse_manifest_success` | PASS |
+| `test_parse_manifest_invalid_json` | PASS |
+| `test_parse_manifest_missing_manifest_id` | PASS |
+| `test_parse_manifest_missing_items` | PASS |
+| `test_validate_version_valid` | PASS |
+| `test_validate_version_invalid` | PASS |
+| `test_detect_no_circular_dependencies` | PASS |
+| `test_detect_circular_dependencies` | PASS |
+| `test_detect_unknown_dependency` | PASS |
+| `test_validate_manifest_success` | PASS |
+| `test_validate_manifest_circular_fails` | PASS |
+| `test_validate_manifest_bad_version` | PASS |
+| `test_validate_manifest_file_nonexistent` | PASS |
+| `test_validate_manifest_no_dependencies` | PASS |
+| `test_validation_error_display` | PASS |
+| `test_self_referencing_dependency` | PASS |
 
-| Test binary          | Passed | Failed | Ignored |
-|----------------------|--------|--------|---------|
-| main.rs (unit tests) | 10     | 0      | 0       |
-| **Subtotal**         | **10** | **0**  | **0**   |
+#### Binary Tests (src/main.rs)
 
-### Overall
+| Test | Result |
+|------|--------|
+| `test_run_no_args` | PASS |
+| `test_run_nonexistent_file` | PASS |
 
-**Total: 28 passed, 0 failed, 0 ignored.**
+**Total: 18 passed, 0 failed, 0 ignored.**
 
-## 6. Error Handling Analysis
+---
 
-### Production code (`src/lib.rs`, `src/main.rs`)
+## 5. Manifest Validation Run
+
+| Manifest File | Result | Details |
+|---------------|--------|---------|
+| `S1-003-000-ROADMAP.json` | VALID | sprint S1-003, 2 items |
+| `S1-001-000-ROADMAP.json` | VALID | sprint S1-001, 1 item |
+| `TEST-INVALID.json` | INVALID | missing field `sprint_id` (expected) |
+| `S1-002-000-CIRCULAR.json` | INVALID | circular dependency detected (expected) |
+
+---
+
+## 6. S1-003 Requirement Manifest System
+
+The repository contains a complete two-phase requirement manifest system:
+
+- **S1-003-000-ROADMAP.json**: Roadmap manifest with `manifest_id: "S1-003-000"`, `sprint_id: "S1-003"`, `version: "1.0.0"`, 2 items, and 1 dependency (Phase 2 depends on Phase 1). Validates successfully.
+- **S1-003-001-PHASE1.json**: Individual requirement with `id: "S1-003-001"`, title "Phase 1: Foundation Setup", branch, repo_url, requirements text, project_root, and `domain_id: "infrastructure"`.
+- **S1-003-002-PHASE2.json**: Individual requirement with `id: "S1-003-002"`, title "Phase 2: Feature Implementation", depends on `S1-003-001`, with branch, repo_url, requirements text, project_root, and `domain_id: "features"`.
+
+All three files are well-formed JSON and internally consistent. The dependency relationship correctly models Phase 2 depending on Phase 1.
+
+---
+
+## 7. Error Handling Analysis
+
+### Production code (src/lib.rs, src/main.rs)
 
 - All public functions return `Result<T, ValidationError>` with explicit error variants.
-- No bare `.unwrap()` calls in production code paths. One `unwrap_or(0)` at `src/lib.rs:172` is a safe fallback within cycle detection (position lookup that always succeeds by construction).
+- No bare `.unwrap()` calls in production code paths. One `unwrap_or(0)` at `src/lib.rs:172` is a safe fallback within cycle detection.
 - File I/O errors are mapped via `.map_err(|e| ValidationError::IoError(...))`.
 - JSON parse errors are mapped via `.map_err(|e| ValidationError::ParseError(...))`.
 - The `main()` function propagates errors through the `run()` helper and exits with code 1 on failure.
-- No empty `catch` blocks (not applicable to Rust; all `match` arms are exhaustive).
-
-### fixture-crate (`fixture-crate/src/main.rs`)
-
-- Contains only pure arithmetic functions (`add`, `multiply`) with infallible `i32` return types.
-- No fallible operations exist, so no error handling is needed.
+- All `match` arms are exhaustive.
 
 **Conclusion: No missing error handling patterns detected.**
 
-## 7. Secrets / Credentials Scan
+---
 
-A case-insensitive scan was performed across all source files for patterns matching `password`, `secret`, `api_key`, `apikey`, `token`, and `credential` near assignment operators.
+## 8. Secrets / Credentials Scan
 
 **Result: No hardcoded secrets, credentials, or API keys found.**
 
-## 8. Code Quality Violations
+---
+
+## 9. Code Quality Summary
 
 | Category                    | Count | Details                        |
 |-----------------------------|-------|--------------------------------|
-| TODO/FIXME/HACK markers     | 0     | None found in source code      |
+| Active code markers         | 0     | None found in source code      |
 | Bare `.unwrap()` calls      | 0     | None in production code        |
 | Empty error handlers        | 0     | All error paths handled        |
 | Hardcoded secrets           | 0     | None detected                  |
 | Debug output in prod paths  | 0     | Only `eprintln!` for CLI output|
+| Placeholder code            | 0     | All functions fully implemented|
 
-## 9. Final Verdict
+---
+
+## 10. Final Verdict
 
 | Criterion                        | Status |
 |----------------------------------|--------|
 | Build succeeds without errors    | PASS   |
 | All tests pass (0 failures)      | PASS   |
-| No TODO/FIXME/HACK markers       | PASS   |
-| No hardcoded secrets              | PASS   |
-| Explicit error handling verified  | PASS   |
-| `multiply` function present       | PASS   |
-| `multiply` unit tests present     | PASS   |
+| No active code markers           | PASS   |
+| No hardcoded secrets             | PASS   |
+| Explicit error handling verified | PASS   |
+| S1-003 manifest system complete  | PASS   |
+| All file paths verified to exist | PASS   |
 
 **Overall Verdict: PASS**
 
-The repository is in a valid, buildable state. All 28 tests pass. The `multiply(a: i32, b: i32) -> i32` function exists in `fixture-crate/src/main.rs` with comprehensive unit tests under `#[cfg(test)]`. No code quality violations were detected.
-
-## 10. S1-002-000-CIRCULAR.json Validation
-
-The `S1-002-000-CIRCULAR.json` manifest file was validated against the manifest-validator tool:
-
-- **manifest_id:** S1-002-000-CIRCULAR
-- **sprint_id:** S1-002
-- **title:** Sprint S1-002 Circular Dependencies Test
-- **version:** 1.0.0
-- **Items:** S1-002-001, S1-002-002, S1-002-003
-- **Dependencies:** S1-002-001 -> S1-002-002 -> S1-002-003 -> S1-002-001 (cycle)
-
-**Validation result:** INVALID (exit code 1)
-**Error:** `Circular dependency detected: S1-002-001 -> S1-002-002 -> S1-002-003 -> S1-002-001`
-
-The circular dependency cycle is correctly detected and rejected by the validator. The manifest meets all structural requirements (valid manifest_id, sprint_id, title, version, three items with correct IDs) but intentionally fails validation due to the circular dependency cycle, as expected.
-
-## 11. Requirements Cross-Reference
-
-| Requirement | Status | Notes |
-|---|---|---|
-| S1-002-000-CIRCULAR.json exists with valid manifest_id | PASS | `S1-002-000-CIRCULAR` |
-| sprint_id is S1-002 | PASS | Confirmed |
-| title is present | PASS | `Sprint S1-002 Circular Dependencies Test` |
-| version is 1.0.0 | PASS | Confirmed |
-| Three items: S1-002-001, S1-002-002, S1-002-003 | PASS | All present |
-| Circular dependency: 001 -> 002 -> 003 -> 001 | PASS | Cycle correctly formed |
-| Manifest fails validation due to circular dependency | PASS | Validator rejects with exit code 1 |
+The repository is in a valid, buildable state. All 18 tests pass. No code quality violations were detected. The S1-003 requirement manifest system is complete with a valid roadmap, two phase files, and correct dependency modeling.
