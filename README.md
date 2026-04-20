@@ -1,61 +1,73 @@
-# manifest-validator
+# configstitch
 
-A Rust tool and library for validating requirement manifest JSON files. Detects missing fields, invalid version strings, unknown dependency references, and circular dependency cycles.
+Merge layered configuration files into a single unified config.
 
-## Building
+## Overview
 
-```sh
-cargo build
+configstitch reads multiple configuration files (TOML, JSON) and merges them
+using overlay semantics: values in later files override values in earlier files.
+Maps are merged recursively; scalars and arrays are replaced wholesale.
+
+This is useful for managing configuration that varies by environment:
+
+    base.toml + production.toml → merged output
+
+## Installation
+
+    cargo install --path .
+
+## Usage
+
+    # Merge two TOML files, output JSON
+    configstitch merge base.toml production.toml --format json
+
+    # Merge with explicit output file
+    configstitch merge base.toml staging.toml -o merged.toml
+
+    # Validate merged config against a JSON schema
+    configstitch validate merged.json --schema schema.json
+
+    # Show diff between two configs
+    configstitch diff base.toml production.toml
+
+## Supported Formats
+
+| Format | Read | Write | Status     |
+|--------|------|-------|------------|
+| TOML   | Yes  | Yes   | Stable     |
+| JSON   | Yes  | Yes   | Stable     |
+| YAML   | No   | No    | Planned    |
+
+## Library Usage
+
+configstitch can also be used as a library:
+
+```rust
+use configstitch::{merge_configs, Format};
+
+let base = std::fs::read_to_string("base.toml").unwrap();
+let overlay = std::fs::read_to_string("prod.toml").unwrap();
+
+let merged = merge_configs(&base, &overlay, Format::Toml).unwrap();
+println!("{}", merged);
 ```
 
-## Testing
+## Architecture
 
-```sh
-cargo test
-```
+- `src/main.rs` — CLI entry point using clap
+- `src/lib.rs` — Public API re-exports
+- `src/merge.rs` — Core merge logic (recursive map merge)
+- `src/format.rs` — Format detection and conversion (TOML <-> JSON)
+- `src/error.rs` — Error types
+- `src/diff.rs` — Config diff display
 
-## Running
+## Contributing
 
-Pass one or more manifest JSON files as arguments:
+1. Fork and clone
+2. `cargo test` to verify the test suite passes
+3. Make changes, add tests
+4. `cargo clippy` and `cargo fmt` before submitting
 
-```sh
-cargo run -- path/to/manifest.json
-```
+## License
 
-The tool exits with code 0 if all manifests are valid, or code 1 if any fail validation.
-
-### Example
-
-```sh
-# Validates a manifest with circular dependencies (expected to fail)
-cargo run -- S1-002-000-CIRCULAR.json
-```
-
-## Manifest Format
-
-```json
-{
-  "manifest_id": "S1-001-000",
-  "sprint_id": "S1-001",
-  "title": "Sprint Title",
-  "version": "1.0.0",
-  "items": [
-    {"id": "S1-001-001", "title": "First item"},
-    {"id": "S1-001-002", "title": "Second item"}
-  ],
-  "dependencies": [
-    {"from": "S1-001-001", "to": "S1-001-002"}
-  ]
-}
-```
-
-## Validation Rules
-
-- All required fields (`manifest_id`, `sprint_id`, `title`, `version`, `items`) must be present and non-empty.
-- Version must follow semver format (MAJOR.MINOR.PATCH).
-- All dependency `from`/`to` references must correspond to existing item IDs.
-- The dependency graph must be acyclic (no circular dependencies).
-
-## Workspace
-
-This repository is a Cargo workspace that also includes `fixture-crate`, a minimal smoke-test fixture.
+MIT

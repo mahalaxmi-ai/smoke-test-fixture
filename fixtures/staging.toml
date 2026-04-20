@@ -1,0 +1,5 @@
+[database]
+host = "db.staging.internal"
+
+[logging]
+level = "debug"

@@ -1,0 +1,3 @@
+[database
+host = missing_quote
+port = "not_a_number

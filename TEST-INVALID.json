@@ -1,9 +1,0 @@
-{
-  "manifest_id": "invalid@id!",
-  "version": "v1.2",
-  "title": "Invalid Test Manifest",
-  "items": [],
-  "dependencies": [
-    {"from": "nonexistent-a", "to": "nonexistent-b"}
-  ]
-}

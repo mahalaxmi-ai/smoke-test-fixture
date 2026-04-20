@@ -1,0 +1,11 @@
+[database]
+host = "localhost"
+port = 5432
+name = "myapp"
+
+[server]
+port = 8080
+bind = "0.0.0.0"
+
+[logging]
+level = "info"
